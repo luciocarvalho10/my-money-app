@@ -1,14 +1,29 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-export default class TabHeader extends Component {
-  render(){
+import { selectTab } from './tabActions'
+
+class TabHeader extends Component {
+  render() {
+    const { icon, label, tab, target, selectTab } = this.props
+    const selected = target === tab.selected
     return (
-      <li>
-        <a href='javascript:;' data-toggle='tab' data-target={this.props.target}>
-          <i className={`fa fa-${this.props.icon}`}></i>
-          {' '}{this.props.label}
+      <li className={selected ? 'active' : ''}>
+        <a
+          href="javascript:;"
+          data-toggle="tab"
+          onClick={() => selectTab(target)}
+          data-target={target}
+        >
+          <i className={`fa fa-${icon}`}></i> {label}
         </a>
       </li>
     )
   }
 }
+
+const mapStatetoProps = state => ({ tab: state.tab })
+const mapDsipatchtoProps = dispatch =>
+  bindActionCreators({ selectTab }, dispatch)
+export default connect(mapStatetoProps, mapDsipatchtoProps)(TabHeader)
