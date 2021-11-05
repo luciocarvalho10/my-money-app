@@ -23,7 +23,7 @@ class TabHeader extends Component {
   }
 }
 
-const mapStatetoProps = state => ({ tab: state.tab })
-const mapDsipatchtoProps = dispatch =>
+const mapStateToProps = state => ({ tab: state.tab })
+const mapDispatchToProps = dispatch =>
   bindActionCreators({ selectTab }, dispatch)
-export default connect(mapStatetoProps, mapDsipatchtoProps)(TabHeader)
+export default connect(mapStateToProps, mapDispatchToProps)(TabHeader)
