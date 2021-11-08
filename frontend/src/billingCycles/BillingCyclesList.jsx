@@ -10,7 +10,6 @@ class BillingCyclesList extends Component {
     this.props.getList()
   }
 
-<<<<<<< HEAD
   renderRows() {
     const list = this.props.list || []
     return list.map(bc => (
@@ -22,8 +21,6 @@ class BillingCyclesList extends Component {
     ))
   }
 
-=======
->>>>>>> d4959e9c3ced7e32118c6c27fe107e852f55214e
   render() {
     return (
       <div>
@@ -44,10 +41,6 @@ class BillingCyclesList extends Component {
   }
 }
 
-<<<<<<< HEAD
 const mapStateToProps = state => ({list: state.billingCycles.list})
-=======
-const mapStateToProps = state => ({list: state.BillingCycles.list})
->>>>>>> d4959e9c3ced7e32118c6c27fe107e852f55214e
 const mapDispatchToProps = dispatch => bindActionCreators({getList}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(BillingCyclesList)
