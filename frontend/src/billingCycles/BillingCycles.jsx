@@ -41,7 +41,9 @@ componentDidMount(){
               <TabContent id='tabCreate'>
                 <BillingCyclesForm onSubmit={this.props.create}/>
               </TabContent>
-              <TabContent id='tabUpdate'><h1>tabUpdate</h1></TabContent>
+              <TabContent id='tabUpdate'>
+                <BillingCyclesForm />
+              </TabContent>
               <TabContent id='tabDelet'><h1>tabDelet</h1></TabContent>
             </TabsContent>
           </Tabs>

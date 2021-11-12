@@ -27,3 +27,7 @@ export const create = values => {
       )
   }
 }
+
+export const showUpdate = billingCycle => [
+    showTabs('tabUpdate'), selectTab('tabUpdate')
+]
