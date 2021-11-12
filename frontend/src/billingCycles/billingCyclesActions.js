@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import { toastr } from 'react-redux-toastr'
-import { reset as resetForm } from 'redux-form'
+import { reset as resetForm, initialize } from 'redux-form'
 import { selectTab, showTabs } from '../common/tab/tabActions'
 
 const url = 'http://localhost:3003/api'
@@ -29,5 +29,7 @@ export const create = values => {
 }
 
 export const showUpdate = billingCycle => [
-    showTabs('tabUpdate'), selectTab('tabUpdate')
+  showTabs('tabUpdate'),
+  selectTab('tabUpdate'),
+  initialize('BillingCyclesForm', billingCycle)
 ]
