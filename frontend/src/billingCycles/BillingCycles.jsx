@@ -2,18 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-
-import ContentHeader from '../common/template/ContentHeader'
 import Content from '../common/template/Content'
-import TabsHeader from '../common/tab/TabsHeader'
+import ContentHeader from '../common/template/ContentHeader'
+
 import Tabs from '../common/tab/Tabs'
-import TabsContent from '../common/tab/TabsContent'
 import TabHeader from '../common/tab/TabHeader'
 import TabContent from '../common/tab/TabContent'
-import { selectTab, showTabs } from '../common/tab/tabActions'
+import TabsHeader from '../common/tab/TabsHeader'
+import TabsContent from '../common/tab/TabsContent'
 import BillingCyclesList from './BillingCyclesList'
 import BillingCyclesForm from './BillingCyclesForm'
-import { create } from './BillingCyclesActions'
+
+import { selectTab, showTabs } from '../common/tab/tabActions'
+import { create, update } from './BillingCyclesActions'
 
 class BillingCycles extends Component {
 
@@ -42,7 +43,7 @@ componentDidMount(){
                 <BillingCyclesForm onSubmit={this.props.create}/>
               </TabContent>
               <TabContent id='tabUpdate'>
-                <BillingCyclesForm />
+                <BillingCyclesForm onSubmit={this.props.update}/>
               </TabContent>
               <TabContent id='tabDelet'><h1>tabDelet</h1></TabContent>
             </TabsContent>
@@ -53,5 +54,5 @@ componentDidMount(){
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({selectTab, showTabs, create}, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({selectTab, showTabs, create, update}, dispatch)
 export default connect(null, mapDispatchToProps)(BillingCycles)

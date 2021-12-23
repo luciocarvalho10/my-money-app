@@ -11,18 +11,20 @@ export const getList = () => {
   return { type: 'BILLING_CYCLES_FETCHED', payload: request }
 }
 
-export const create = values => {
+export const init = () => [
+  showTabs('tabList', 'tabCreate'),
+  selectTab('tabList'),
+  getList(),
+  initialize('BillingCyclesForm', INITIAL_VALUES)
+]
+
+const submit = (values, method) => {
   return dispatch => {
-    Axios.post(`${url}/billingCycles`, values)
+    const id = values._id ? values._id : ''
+    Axios[method](`${url}/billingCycles/${id}`, values)
       .then(resp => {
         toastr.success('Sucesso', 'Operação realizada com sucesso!')
         dispatch(init())
-        // dispatch([
-        //   resetForm('BillingCyclesForm'),
-        //   getList(),
-        //   selectTab('tabList'),
-        //   showTabs('tabList', 'tabCreate')
-        // ])
       })
       .catch(e =>
         e.response.data.errors.forEach(er => toastr.error('Erro', er))
@@ -30,15 +32,13 @@ export const create = values => {
   }
 }
 
+export const create = values => submit(values, 'post')
+
+export const update = values => submit(values, 'put')
+
+
 export const showUpdate = billingCycle => [
   showTabs('tabUpdate'),
   selectTab('tabUpdate'),
   initialize('BillingCyclesForm', billingCycle)
-]
-
-export const init = () => [
-  showTabs('tabList', 'tabCreate'),
-  selectTab('tabList'),
-  getList(),
-  initialize('billingCyclesForm', INITIAL_VALUES)
 ]
