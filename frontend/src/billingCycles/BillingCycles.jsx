@@ -40,13 +40,23 @@ componentDidMount(){
                 <BillingCyclesList />
               </TabContent>
               <TabContent id='tabCreate'>
-                <BillingCyclesForm onSubmit={this.props.create}/>
+                <BillingCyclesForm
+                  onSubmit={this.props.create}
+                  submitClass='primary' submitLabel='Incluir'
+                />
               </TabContent>
               <TabContent id='tabUpdate'>
-                <BillingCyclesForm onSubmit={this.props.update}/>
+                <BillingCyclesForm
+                  onSubmit={this.props.update}
+                  submitClass='info' submitLabel='Alterar'
+                />
               </TabContent>
               <TabContent id='tabDelete'>
-                <BillingCyclesForm onSubmit={this.props.remove} readOnly={true}/>
+                <BillingCyclesForm
+                  onSubmit={this.props.remove}
+                  submitClass='danger' submitLabel='Excluir'
+                  readOnly={true}
+                />
               </TabContent>
             </TabsContent>
           </Tabs>
