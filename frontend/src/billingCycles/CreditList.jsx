@@ -5,28 +5,29 @@ import Grid from '../common/layout/Grid'
 
 export default class CreditList extends Component {
 
-  bodyRows() {
-    return (
-      <tr>
+  renderRows() {
+    const list = this.props.list || []
+    return list.map((item, index) => (
+      <tr key={index}>
         <td>
           <Field
-            name='credits[0].name'
+            name={`credits[${index}].name`}
             component={Input}
-            placeholder='Informe o nome'
+            placeholder="Informe o nome"
             readOnly={this.props.readOnly}
           />
         </td>
         <td>
           <Field
-            name='credits[0].value'
+            name={`credits[${index}].value`}
             component={Input}
-            placeholder='Informe o valor'
+            placeholder="Informe o valor"
             readOnly={this.props.readOnly}
           />
         </td>
         <td></td>
       </tr>
-    )
+    ))
   }
 
   render() {
@@ -42,7 +43,7 @@ export default class CreditList extends Component {
                 <td>Ações</td>
               </tr>
             </thead>
-            <tbody>{this.bodyRows()}</tbody>
+            <tbody>{this.renderRows()}</tbody>
           </table>
         </fieldset>
       </Grid>
