@@ -1,9 +1,24 @@
 import React, {Component} from 'react'
-import { Field } from 'redux-form'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { Field, arrayInsert, arrayRemove } from 'redux-form'
+
 import Input from '../common/form/Input'
 import Grid from '../common/layout/Grid'
 
-export default class CreditList extends Component {
+class CreditList extends Component {
+
+  add(index, item = {}) {
+    if(!this.props.readOnly){
+      this.props.arrayInsert('BillingCyclesForm', 'credits', index, item)
+    }
+  }
+
+  remove(index) {
+    if(!this.props.readOnly && this.props.list.length > 1) {
+      this.props.arrayRemove('BillingCyclesForm', 'credits', index)
+    }
+  }
 
   renderRows() {
     const list = this.props.list || []
@@ -25,7 +40,23 @@ export default class CreditList extends Component {
             readOnly={this.props.readOnly}
           />
         </td>
-        <td></td>
+        <td>
+          <button type='button' className='btn btn-success'
+            onClick={() => this.add(index + 1)}
+          >
+            <i className="fa fa-plus"></i>
+          </button>
+          <button type='button' className='btn btn-warning'
+            onClick={() => this.add(index + 1, item)}
+          >
+            <i className="fa fa-clone"></i>
+          </button>
+          <button type='button' className='btn btn-danger'
+            onClick={() => this.remove(index)}
+          >
+            <i className="fa fa-trash-o"></i>
+          </button>
+        </td>
       </tr>
     ))
   }
@@ -40,7 +71,7 @@ export default class CreditList extends Component {
               <tr>
                 <td>Nome</td>
                 <td>Valor</td>
-                <td>Ações</td>
+                <td className='table-actions'>Ações</td>
               </tr>
             </thead>
             <tbody>{this.renderRows()}</tbody>
@@ -50,3 +81,7 @@ export default class CreditList extends Component {
     )
   }
 }
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ arrayInsert, arrayRemove }, dispatch)
+export default connect(null, mapDispatchToProps)(CreditList)
