@@ -7,6 +7,7 @@ import { init } from './billingCyclesActions'
 
 import InputAndLabel from '../common/form/InputAndLabel'
 import ItemList from './ItemtList'
+import Summary from './Summary'
 
 class BillingCyclesForm extends Component {
   render() {
@@ -40,6 +41,7 @@ class BillingCyclesForm extends Component {
             placeholder="Informe o ano"
             readOnly={readOnly}
           />
+          <Summary credit={1000} debt={100}/>
           <ItemList
             cols='12 6'
             list={credits}
