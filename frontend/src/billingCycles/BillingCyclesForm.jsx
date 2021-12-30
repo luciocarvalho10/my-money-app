@@ -10,8 +10,18 @@ import ItemList from './ItemtList'
 import Summary from './Summary'
 
 class BillingCyclesForm extends Component {
+
+  claculateSummary() {
+    const sum = (total, valor) => total + valor
+    return {
+      SoC: this.props.credits.map( c => +c.value || 0).reduce(sum),
+      SoD: this.props.debts.map( d => +d.value || 0).reduce(sum)
+    }
+  }
+
   render() {
     const { handleSubmit, readOnly, credits, debts } = this.props
+    const { SoC, SoD } = this.claculateSummary()
     return (
       <form role="form" onSubmit={handleSubmit}>
         <div className="box-body">
@@ -41,7 +51,7 @@ class BillingCyclesForm extends Component {
             placeholder="Informe o ano"
             readOnly={readOnly}
           />
-          <Summary credit={1000} debt={100}/>
+          <Summary credit={SoC} debt={SoD}/>
           <ItemList
             cols='12 6'
             list={credits}
