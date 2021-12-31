@@ -1,5 +1,6 @@
 const port = 3003
-const backlog = () => console.log(`BACKEND is runnig at ${port} - ${new Date().toLocaleTimeString()}`)
+const date = new Date().toLocaleTimeString()
+const backlog = () => console.log(`BACKEND is runnig at ${port} - ${date}`)
 
 const bodyParser = require('body-parser')
 const express = require('express')
