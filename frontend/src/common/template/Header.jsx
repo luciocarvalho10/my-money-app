@@ -4,7 +4,7 @@ export default props => (
   <header className="main-header">
     <a href="/#/" className="logo">
       <span className="logo-mini">
-        <b>My</b> M
+        <b>My</b> <i className="fa fa-money"></i>
       </span>
       <span className="logo-lg">
         <i className="fa fa-money"></i>
