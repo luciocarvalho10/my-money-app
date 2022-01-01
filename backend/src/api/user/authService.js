@@ -35,11 +35,11 @@ const validateToken = (req, res, next) => {
   jwt.verify(
     token,
     env.secretAuth,
-    (err, decode) => res.status(200).send({valid: !err})
+    (err, decoded) => res.status(200).send({valid: !err})
   )
 }
 
-const signup = (req, res, next) {
+const signup = (req, res, next) => {
   const name = req.body.name || ''
   const email = req.body.email || ''
   const password = req.body.password || ''
@@ -61,13 +61,17 @@ const signup = (req, res, next) {
 
   const salt = bcrypt.genSaltSync()
   const passwordHash = bcrypt.hashSync(password, salt)
-  if(!bcrypt.compareSync(confirmPassword, passwordHash) {
+  if(!bcrypt.compareSync(confirmPassword, passwordHash)) {
     res.status(400).send({errors: ['Senhas não conferem.']})
   }
 
   User.findOne({email}, (err,user) => {
-    if(err) { return sendErrosFromDB(res, err) }
-    else if (user) { res.status(400).send({erros: ['Usuário já existe.']}) }
+    if(err) {
+      return sendErrosFromDB(res, err)
+    }
+    else if (user) {
+      res.status(400).send({erros: ['Usuário já existe.']})
+    }
     else {
       const newUser = new User({name, email, password: passwordHash})
       newUser.save(err => {
