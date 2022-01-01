@@ -5,9 +5,9 @@ module.exports = (req, res, next) => {
   // CORS preflight request
   if(req.method === 'OPTIONS') {
     next()
-  }
-  else {
+  } else {
     const token = req.body.token || req.query.token || req.headers['authorization']
+
     if(!token) {
       return res.status(403).send({errors: ['No token provided.']})
     }
