@@ -9,7 +9,7 @@ const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/
 
 const sendErrosFromDB = (res, dbErros) => {
   const errors = []
-  _.forIn(dbErros.erros, error => errors.push(error.message))
+  _.forIn(dbErros.errors, error => errors.push(error.message))
   return res.status(400).json({ errors })
 }
 
@@ -21,7 +21,7 @@ const login = (req, res, next) => {
     if (err) {
       sendErrosFromDB(res, err)
     } else if (user && bcrypt.compareSync(password, user.password)) {
-      const token = jwt.sign(user, env.secretAuth, {expiresIn: '1 day'})
+      const token = jwt.sign(user, env.authSecret, {expiresIn: '1 day'})
       const {name, email} = user
       res.json({name, email, token})
     } else {
@@ -32,10 +32,8 @@ const login = (req, res, next) => {
 
 const validateToken = (req, res, next) => {
   const token = req.body.token || ''
-  jwt.verify(
-    token,
-    env.secretAuth,
-    (err, decoded) => res.status(200).send({valid: !err})
+  jwt.verify(token, env.authSecret, (err, decoded) =>
+    res.status(200).send({ valid: !err })
   )
 }
 
@@ -51,11 +49,7 @@ const signup = (req, res, next) => {
 
   if(!password.match(passwordRegex)) {
     return res.status(400).send({errors: [
-      'Senha precisa ter 1 letra maiúscula.',
-      'Senha precisa ter 1 letra minúscula.',
-      'Senha precisa ter 1 número.',
-      'Senha precisa ter 1 caractere especial(@#$%).',
-      'Senha precisa ter tamanho entre 6 e 12.'
+      'Senha precisa ter letra maiúscula, letra minúscula, número, caractere especial(@#$%), tamanho entre 6 e 12.'
     ]})
   }
 
@@ -70,7 +64,7 @@ const signup = (req, res, next) => {
       return sendErrosFromDB(res, err)
     }
     else if (user) {
-      res.status(400).send({erros: ['Usuário já existe.']})
+      res.status(400).send({errors: ['Usuário já existe.']})
     }
     else {
       const newUser = new User({name, email, password: passwordHash})

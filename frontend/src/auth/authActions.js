@@ -3,7 +3,7 @@ import axios from 'axios'
 import consts from '../consts'
 
 const submit = (value, url) => dispatch => axios
-  .post(consts.OAPI_URL, value)
+  .post(url, value)
   .then(resp =>
     dispatch([{
         type: 'USER_FETCHED',
@@ -18,7 +18,7 @@ export const login = value => submit(value, `${consts.OAPI_URL}/login`)
 
 export const signup = value => submit(value, `${consts.OAPI_URL}/signup`)
 
-export const logout = () => ({type: 'TOKEN_VALIDATE', payload: false})
+export const logout = () => ({type: 'TOKEN_VALIDATED', payload: false})
 
 export const validateToken = token => dispatch => {
   if (token) {

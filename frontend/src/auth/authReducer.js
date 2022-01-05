@@ -8,7 +8,7 @@ export default (state = INITIAL_STATE, action) => {
   switch(action.type) {
     case 'TOKEN_VALIDATED':
       if (action.payload) {
-        return { ...StaticRange, validToken: true }
+        return { ...state, validToken: true }
       } else {
         localStorage.removeItem(userKey)
         return { ...state, validToken: false, user: null }

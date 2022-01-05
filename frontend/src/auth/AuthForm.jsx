@@ -19,11 +19,11 @@ class AuthForm extends Component {
   }
 
   changeMode() {
-    this,this.setState({ loginMode: !this.state.loginMode })
+    this.setState({ loginMode: !this.state.loginMode })
   }
 
   onSubmit(values) {
-    const { login, sgnup } = this.props
+    const { login, signup } = this.props
     this.state.loginMode ? login(values) : signup(values)
   }
 
@@ -35,7 +35,7 @@ class AuthForm extends Component {
       <div className="login-box">
         <div className="login-logo"><b>My</b> Money</div>
         <div className="login-box-body">
-          <p className="logim-box-msg">Bem Vindo!</p>
+          <p className="login-box-msg">Bem Vindo!</p>
           <form onSubmit={handleSubmit(v => this.onSubmit(v))}>
             <Field
               component={InputAuth}
@@ -93,6 +93,6 @@ class AuthForm extends Component {
   }
 }
 
-AuthForm = reduxForm({ form: AuthForm})(AuthForm)
+AuthForm = reduxForm({ form: 'AuthForm'})(AuthForm)
 const mapDispatchToProps = dispatch => bindActionCreators({login, signup}, dispatch)
 export default connect(null, mapDispatchToProps)(AuthForm)
